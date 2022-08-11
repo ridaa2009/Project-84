@@ -1,68 +1,114 @@
-// Create a reference for the canvas
-<canvas id="myCanvas" width="500" height="300"></canvas>
+//Create a reference for canvas 
 canvas=document.getElementById("myCanvas");
-ctx= canvas.getContext("2d");
+ctx=canvas.getContext("2d");
 
-img_width = 300;
-img_height = 100;
+//Give specific height and width to the car image
+greencar_width=75;
+greencar_height=100;
 
-var img_image;
+background_image = "parkingLot.jpg";
+greencar_image = "car2.png"
 
-img_x = 100;
-img_y = 100;
+//Set initial position for a car image.
+greencar_x=5;
+greencar_y=225;
+function add()
+{
+	background_imgTag= new Image ;
+	background_imgTag.onload=uploadBackground;
+	background_imgTag.src=background_image;
 
-function add() {
-	img_imgTag = new Image(); //defining a variable with a new image
-	img_imgTag.onload = uploadimg; // setting a function, onloading this variable
-	img_imgTag.src = img_image;   // load image
+	greencar_imgTag= new Image;
+	greencar_imgTag.onload= uploadgreencar;
+	greencar_imgTag.src=greencar_image;
+	console.log("hello im an add")
+
 }
 
-function uploadimg() {
+function uploadBackground() {
+	//Define function ‘uploadBackground’
+	ctx.drawImage(background_imgTag, 0,0, canvas.width,canvas.height);
 
-	ctx.drawImage(img_imgTag, img_x, img_y, img_width, img_height);
-	window.addEventListener("keydown",my_keydown);
+
 }
 
-//Write a code to grab the key-pressed event
+function uploadgreencar() {
+	//Define function ‘uploadgreencar’.
+ctx.drawImage(greencar_imgTag, greencar_x,greencar_y, greencar_width,greencar_height);
+	
+}
+
+
+window.addEventListener("keydown", my_keydown);
 
 function my_keydown(e)
 {
 	keyPressed = e.keyCode;
 	console.log(keyPressed);
+		if(keyPressed == '38')
+		{
+			up();
+			console.log("up");
+		}
 	
-		if((keyPressed >=97 && keyPressed<=122)|| (keyPressed >=65 && keyPressed<=90))
-		//write a code to check the type of key pressed
-         aplhabetkey();
-		 document.getElementById("d1").innerHTML="You pressed alphabet key";
-		 console.log("aplhabetkey");
+		if(keyPressed == '40')
+		{
+			down();
+			console.log("down");
+		}
+		
+		if(keyPressed == '37')
+		{
+			left();
+			console.log("left");
+		}
+	
+		if(keyPressed == '39')
+		{
+			right();
+			console.log("right");
+		}
+		
+		
+}
 
-		otherkey();
-		document.getElementById("d1").innerHTML="You pressed symbol or other key";
-		console.log("otherkey");
+function up()
+{
+	if(greencar_y>=0)
+	{
+		greencar_y=greencar_y-10;
+		uploadBackground();
+		uploadgreencar();
+	}
+
+}
+
+function down()
+{
+	if(greencar_y<=300)
+	{
+		greencar_y=greencar_y+10;
+		uploadBackground();
+		uploadgreencar();
 	}
 }
 
-function aplhabetkey()
+function left()
 {
-	//upload respective image with the message. 
-	img_image="Alpkey.png";
-	add();
+	if(greencar_x>=0)
+	{
+		greencar_x=greencar_x-10;
+		uploadBackground();
+		uploadgreencar();
+	}
+}
 
-}
-function numberkey()
+function right()
 {
-	
+	if(greencar_x<=525)
+	{
+		greencar_x=greencar_x+10;
+		uploadBackground();
+		uploadgreencar();
+	}
 }
-function arrowkey()
-{
-}
-function specialkey()
-{
-	
-}
-function otherkey()
-{
-	img_image="otherkey.png";
-	add();
-}
-	
